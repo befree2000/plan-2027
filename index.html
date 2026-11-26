@@ -289,6 +289,12 @@
     cursor: pointer; transition: opacity 0.15s;
   }
   .pw-btn:hover { opacity: 0.85; }
+  .pw-cancel {
+    background: transparent; color: var(--text-muted); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px; font-size: 13px; cursor: pointer;
+    transition: color 0.15s;
+  }
+  .pw-cancel:hover { color: var(--text); }
   .pw-error { font-size: 12px; color: var(--red); min-height: 16px; }
 
   /* 프로토타이핑 섹션 */
@@ -749,6 +755,7 @@
     <input class="pw-input" type="password" id="pw-input" maxlength="4" placeholder="••••" />
     <div class="pw-error" id="pw-error"></div>
     <button class="pw-btn" onclick="checkPw()">확인</button>
+    <button class="pw-cancel" onclick="closePw()">취소</button>
   </div>
 </div>
 
@@ -770,6 +777,11 @@ function go(id, btn) {
   document.getElementById('panel-' + id).classList.add('active');
   if (btn && btn.classList) btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closePw() {
+  document.getElementById('pw-overlay').classList.remove('active');
+  document.getElementById('pw-error').textContent = '';
 }
 
 function checkPw() {
