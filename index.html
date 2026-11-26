@@ -262,6 +262,23 @@
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
   }
 
+  /* 프로토타이핑 섹션 */
+  .proto-section {
+    border-radius: 10px; padding: 16px 18px; margin-bottom: 16px;
+  }
+  .proto-section.final {
+    background: rgba(59,130,246,0.04); border: 1px solid rgba(59,130,246,0.15);
+  }
+  .proto-section.proto {
+    background: var(--warn-soft); border: 1px solid rgba(245,158,11,0.15);
+  }
+  .proto-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .proto-label.final { color: var(--accent); }
+  .proto-label.proto { color: var(--warn); }
+
   @media (max-width: 680px) {
     .wrap { padding: 32px 18px 80px; }
     .hero h1 { font-size: 26px; }
@@ -275,10 +292,14 @@
 
 <nav class="topnav">
   <div class="nav-brand">KIS AI/DATA 혁신본부 · 2027 방향 논의</div>
-  </nav>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="go('opening',this)">📋 발표 (Opening)</button>
+    <button class="nav-tab" onclick="go('meeting',this)">🗂️ 미팅 진행</button>
+  </div>
+</nav>
 
 <!-- PANEL 1 : 발표 -->
-<div class="panel" style="display:block" id="panel-opening">
+<div class="panel active" id="panel-opening">
 <div class="wrap">
 
   <div class="hero">
@@ -372,7 +393,7 @@
     <div class="block-title"><div class="bnum">3</div>오늘 함께 논의할 것들</div>
     <div class="agenda-cards">
 
-      <div class="ag-card">
+      <div class="ag-card" onclick="go('meeting', document.querySelectorAll('.nav-tab')[1])">
         <div class="ag-idx a1">1</div>
         <div class="ag-body">
           <h3>비즈니스 밸류 중심으로, 우리는 어떻게 일할 것인가</h3>
@@ -417,5 +438,248 @@
 </div>
 </div>
 
+<!-- PANEL 2 : 미팅 진행 -->
+<div class="panel" id="panel-meeting">
+<div class="wrap">
+
+  <div class="m-header">
+    <h2>미팅 진행 가이드</h2>
+    <p>각 어젠다별 출발 질문 · 논의 계층 · 도출 목표</p>
+  </div>
+
+  <div class="flow-bar">
+    <div class="fb open">서두 — 원칙 선언</div>
+    <div class="fb-arr">→</div>
+    <div class="fb a1">어젠다 1 · 어떻게 일할 것인가</div>
+    <div class="fb-arr">→</div>
+    <div class="fb a2">어젠다 2 · 외부를 내부 자산으로</div>
+    <div class="fb-arr">→</div>
+    <div class="fb a3">어젠다 3 · 운영을 어떻게 덜 것인가</div>
+  </div>
+
+  <!-- 어젠다 1 -->
+  <div class="m-card">
+    <div class="m-card-head">
+      <div class="m-badge a1">어젠다 1</div>
+      <div class="m-title">
+        <h3>비즈니스 밸류 중심으로, 우리는 어떻게 일할 것인가</h3>
+        <div class="cq">비즈니스 밸류 정의 → 기준으로 과제 판단 → 필요한 변화 도출</div>
+      </div>
+    </div>
+    <div class="m-body">
+
+      <!-- 최종 결과물 형태 -->
+      <div class="proto-section final">
+        <div class="proto-label final">최종 결과물 형태 — 목적지</div>
+        <div class="tree">
+          <div class="tree-root">비즈니스 밸류가 모든 판단의 기준이다</div>
+          <div class="tree-branches">
+            <div class="tree-branch"><strong>1단계 · 정의</strong> — 우리에게 비즈니스 밸류란 무엇인가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ 어떤 결과가 나와야 "잘 한 과제"라 할 수 있는가?</div>
+                <div class="tree-leaf">→ 측정 가능한 지표로 어떻게 표현할 것인가?</div>
+              </div>
+            </div>
+            <div class="tree-branch"><strong>2단계 · 판단</strong> — 그 기준으로 과제를 보면 무엇이 남고 무엇이 떨어지는가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ 과제별 BV 산정 + 진행 판단</div>
+                <div class="tree-leaf">→ 착수 전 확인 요건</div>
+              </div>
+            </div>
+            <div class="tree-branch"><strong>3단계 · 접근</strong> — 각 팀은 어떻게 접근하고 무엇을 해야 하는가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ AI기획 / AI엔지니어링 / 데이터플랫폼 각 팀의 역할</div>
+                <div class="tree-leaf">→ R&R, 과제 선별 프로세스, 경영진 보고 방식</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 프로토타이핑 -->
+      <div class="proto-section proto">
+        <div class="proto-label proto">오늘 하는 것 — MTS AI 탑재로 프로토타이핑</div>
+        <div class="open-q">
+          <em>최종 결과물 형태를 MTS AI 탑재 과제로 한 번 채워보자.</em><br>
+          케이스 작업을 통해 BV 정의, 판단 기준, 팀별 역할을 귀납적으로 만든다.
+        </div>
+        <div class="tree">
+          <div class="tree-root">MTS AI 탑재 — 프로토타입 케이스</div>
+          <div class="tree-branches">
+            <div class="tree-branch"><strong>Step 1 · BV 산정</strong> — 이 과제의 비즈니스 밸류는 무엇인가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ 어떤 지표로 성공을 측정할 것인가? (앱 체류 시간? 검색 전환율? 거래 활성화?)</div>
+                <div class="tree-leaf">→ 그 지표, 현실적으로 얼마나 움직일 수 있는가?</div>
+              </div>
+            </div>
+            <div class="tree-branch"><strong>Step 2 · 판단</strong> — 그 BV 기준으로 이 과제, 진행할 만한가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ 착수 전에 무엇이 확인되어야 하는가?</div>
+                <div class="tree-leaf">→ 현업 오너십은 어디서 어떻게 확보하는가?</div>
+              </div>
+            </div>
+            <div class="tree-branch"><strong>Step 3 · 팀별 접근</strong> — 각 팀은 이 과제에서 무엇을 해야 하는가?
+              <div class="tree-leaves">
+                <div class="tree-leaf">→ AI기획 / AI엔지니어링 / 데이터플랫폼 각각의 역할과 해야 할 일</div>
+                <div class="tree-leaf">→ 이 케이스에서 R&R이 어떻게 작동하는가?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="m-output">
+        <h4>도출 목표</h4>
+        <p>MTS AI 탑재 케이스 1개 완성 — BV 정의, 판단 근거, 팀별 역할이 채워진 상태. 이 케이스가 나머지 과제 판단의 프로토타입이 된다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 어젠다 2 -->
+  <div class="m-card">
+    <div class="m-card-head">
+      <div class="m-badge a2">어젠다 2</div>
+      <div class="m-title">
+        <h3>외부 도구 사용을 인정하고, 내부 자산으로 끌어들이는 방법</h3>
+        <div class="cq">막는 것도 경쟁도 아닌 — 외부 AI 활용을 플랫폼 위로 올리는 전략</div>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="tree">
+        <div class="tree-root purple">외부 AI = 경쟁 대상이 아닌 인프라 (전략 프레임 전환)</div>
+        <div class="tree-branches">
+          <div class="tree-branch"><strong>사용 자체를 자산화</strong>
+            <div class="tree-leaves">
+              <div class="tree-leaf">LLM Gateway: 모든 외부 AI 호출을 중앙화 → 사용 패턴·비용·보안 내부로</div>
+              <div class="tree-leaf">AI Hub: 프롬프트·에이전트를 조직 자산으로 모으기</div>
+            </div>
+          </div>
+          <div class="tree-branch"><strong>외부 AI + 내부 데이터 결합</strong>
+            <div class="tree-leaves">
+              <div class="tree-leaf">MCP: 외부 AI가 내부 시스템에 연결되는 표준 인터페이스</div>
+              <div class="tree-leaf">Semantic Layer: 내부 데이터를 외부 AI가 쓸 수 있는 형태로</div>
+            </div>
+          </div>
+          <div class="tree-branch"><strong>기존 도구 정리</strong>
+            <div class="tree-leaves">
+              <div class="tree-leaf">무엇을 유지하고 무엇을 걷어낼 것인가 — 기준 합의</div>
+              <div class="tree-leaf">신규 도입 기준: 이 도구로 우리만 할 수 있는 무언가가 생기는가</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-cols">
+        <div class="m-col">
+          <h4>토론 포인트</h4>
+          <ul>
+            <li>LLM Gateway가 채널 파편화 문제의 실질적 해법이 될 수 있는가</li>
+            <li>MCP·Semantic Layer를 현재 데이터팀 운영 부담 위에서 추진 가능한가</li>
+            <li>기존 도구(KIS AI·에이전트 스튜디오) 정리 기준을 어떻게 세울 것인가</li>
+          </ul>
+        </div>
+        <div class="m-col">
+          <h4>핵심 연결</h4>
+          <ul>
+            <li class="g">엔지니어링팀 LLM Gateway·AI Hub 계획과 직결</li>
+            <li class="g">데이터팀 MCP·Semantic Layer 계획과 직결</li>
+            <li class="w">두 팀이 각자가 아닌 하나의 전략 아래 연결되는 그림</li>
+          </ul>
+        </div>
+      </div>
+      <div class="m-output">
+        <h4>도출 목표</h4>
+        <p>외부 AI 자산화 플랫폼 구조 합의. 도구별 유지·전환·정리 방향 초안. 신규 도입 기준 한 문장.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 어젠다 3 -->
+  <div class="m-card">
+    <div class="m-card-head">
+      <div class="m-badge a3">어젠다 3</div>
+      <div class="m-title">
+        <h3>운영을 어떻게 덜 것인가</h3>
+        <div class="cq">열린 질문에서 출발 — 과연 가능한가, 가능하다면 어떻게</div>
+      </div>
+    </div>
+    <div class="m-body">
+      <div class="open-q">
+        <em>"운영을 내려놓는 것이 가능한가?"</em><br>
+        인력 충원으로는 해결되지 않는다. 그렇다면 운영 부담을 줄이면서도 운영할 수 있는 구조가 존재하는가.
+      </div>
+      <div class="tree">
+        <div class="tree-root green">운영 부담 해소가 2027년 선행 과제다</div>
+        <div class="tree-branches">
+          <div class="tree-branch"><strong>무엇을 내려놓을 수 있는가</strong> (기준 정의)
+            <div class="tree-leaves">
+              <div class="tree-leaf">에이전트·서비스 운영 → 현업으로 이전 가능</div>
+              <div class="tree-leaf">솔루션 운영 → 선별적 유지</div>
+              <div class="tree-leaf">타부서 지원 개발 → 구조적 해결 별도 논의</div>
+            </div>
+          </div>
+          <div class="tree-branch"><strong>현업이 운영하려면 무엇이 필요한가</strong> (환경 제공)
+            <div class="tree-leaves">
+              <div class="tree-leaf">도구: 바이브코딩 플랫폼, AI Hub</div>
+              <div class="tree-leaf">교육: AI 활용법 → 직접 만들고 운영하는 역량으로</div>
+              <div class="tree-leaf">거버넌스: 운영 책임 제도화</div>
+            </div>
+          </div>
+          <div class="tree-branch"><strong>직접 운영해야 하는 것은 어떻게 줄이는가</strong> (효율화)
+            <div class="tree-leaves">
+              <div class="tree-leaf">운영 자동화</div>
+              <div class="tree-leaf">EOS·중복 솔루션 정리</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-cols">
+        <div class="m-col">
+          <h4>토론 포인트</h4>
+          <ul>
+            <li>현업에 넘길 수 있는 운영과 직접 해야 하는 운영의 기준은 무엇인가</li>
+            <li>바이브코딩 플랫폼이 현업 셀프서비스의 핵심 수단이 될 수 있는가</li>
+            <li>현업이 운영을 받아들이게 하려면 무엇이 선행되어야 하는가</li>
+          </ul>
+        </div>
+        <div class="m-col">
+          <h4>핵심 전제</h4>
+          <ul>
+            <li class="w">무조건 현업에 넘길 수는 없다 — 기준이 선행</li>
+            <li class="w">현업 입장에서 "부담 전가"가 아닌 "내 도구의 주인"으로 인식되어야</li>
+            <li class="g">이 문제가 풀려야 신규 과제가 가능하다</li>
+          </ul>
+        </div>
+      </div>
+      <div class="m-output">
+        <h4>도출 목표</h4>
+        <p>현업 운영 가능 범위 기준안. 셀프서비스 전환을 위해 2027년에 만들어야 할 것들의 목록. 운영 효율화 접근 방향.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 클로징 -->
+  <div class="closing">
+    <h4>오늘 미팅이 끝나면 가져가야 할 것</h4>
+    <div class="closing-items">
+      <div class="closing-item"><div class="c-num">1</div>MTS AI 탑재 케이스 완성 — BV 정의 + 판단 근거 + 팀별 역할이 채워진 상태</div>
+      <div class="closing-item"><div class="c-num">2</div>기획팀·개발팀 R&R 합의 한 문장씩</div>
+      <div class="closing-item"><div class="c-num">3</div>외부 AI 자산화 플랫폼 구조 합의 (엔지니어링팀·데이터팀 연결)</div>
+      <div class="closing-item"><div class="c-num">4</div>현업 운영 전환 가능 범위 기준안</div>
+      <div class="closing-item"><div class="c-num">5</div>사업계획 문서 작성 일정 및 담당</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  if (btn && btn.classList) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
