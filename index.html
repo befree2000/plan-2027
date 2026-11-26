@@ -262,6 +262,35 @@
     display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
   }
 
+  /* 비밀번호 오버레이 */
+  .pw-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(10,15,30,0.92); backdrop-filter: blur(16px);
+    align-items: center; justify-content: center;
+  }
+  .pw-overlay.active { display: flex; }
+  .pw-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px 48px; text-align: center;
+    display: flex; flex-direction: column; gap: 14px; min-width: 300px;
+  }
+  .pw-box h3 { font-size: 16px; font-weight: 700; color: #fff; }
+  .pw-box p { font-size: 13px; color: var(--text-muted); }
+  .pw-input {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 16px; color: var(--text);
+    font-size: 22px; text-align: center; letter-spacing: 10px;
+    outline: none; width: 100%;
+  }
+  .pw-input:focus { border-color: var(--accent); }
+  .pw-btn {
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 8px; padding: 12px; font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  .pw-btn:hover { opacity: 0.85; }
+  .pw-error { font-size: 12px; color: var(--red); min-height: 16px; }
+
   /* 프로토타이핑 섹션 */
   .proto-section {
     border-radius: 10px; padding: 16px 18px; margin-bottom: 16px;
@@ -713,14 +742,54 @@
 </div>
 </div>
 
+<div class="pw-overlay" id="pw-overlay">
+  <div class="pw-box">
+    <h3>🔒 미팅 진행 가이드</h3>
+    <p>접근 비밀번호를 입력하세요</p>
+    <input class="pw-input" type="password" id="pw-input" maxlength="4" placeholder="••••" />
+    <div class="pw-error" id="pw-error"></div>
+    <button class="pw-btn" onclick="checkPw()">확인</button>
+  </div>
+</div>
+
 <script>
+let meetingUnlocked = false;
+let pendingBtn = null;
+
 function go(id, btn) {
+  if (id === 'meeting' && !meetingUnlocked) {
+    pendingBtn = btn;
+    document.getElementById('pw-overlay').classList.add('active');
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').textContent = '';
+    setTimeout(() => document.getElementById('pw-input').focus(), 100);
+    return;
+  }
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('panel-' + id).classList.add('active');
   if (btn && btn.classList) btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+function checkPw() {
+  const val = document.getElementById('pw-input').value;
+  if (val === '2002') {
+    meetingUnlocked = true;
+    document.getElementById('pw-overlay').classList.remove('active');
+    go('meeting', pendingBtn);
+  } else {
+    document.getElementById('pw-error').textContent = '비밀번호가 맞지 않습니다';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('pw-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPw();
+  });
+});
 </script>
 </body>
 </html>
